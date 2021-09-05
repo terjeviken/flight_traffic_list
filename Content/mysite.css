@@ -1,0 +1,241 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.col-md4{
+    margin: 10px;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1300px !important;
+}
+
+#toolbar > span {
+    margin-right:15px;
+}
+.jumbotron table{
+    width:99%;
+}
+.error-text{
+    color:orangered;
+}
+.copyright{
+    margin-top: 10px;
+}
+.datepicker-dropdown{
+    max-width: 100% !important;
+    font-size:larger !important;
+}
+
+input.datepicker {
+    max-width: 100px;
+    margin-left: 10px;
+}
+.row-flight-no-traffic{
+    background-color:cornflowerblue;
+    color:white;
+}
+
+table table-flight-details td {
+    text-align:center;
+     margin:auto;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.div-messages{
+    background-color:black;    
+}
+
+.div-messages label{
+    margin-top:4px;
+    margin-bottom:4px;
+    margin-left:10px;
+    font-size:small;
+    color: #AAA;
+}
+
+
+
+.snusfornuftig-info{
+    margin:10px;
+    font-style:italic;
+}
+.btn-lg{
+    padding: 8px !important;
+     font-size:13px;
+    margin-right: 10px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.hide_element {
+    display:none;
+}
+
+.day-container{
+    float: left;
+    margin: 10px;
+    font-size:10px !important;
+}
+
+.day-container-last {
+    clear:right;
+}
+
+h5, h6, .center-text{    
+    text-align: center;    
+}
+
+#week-program-display{
+    max-height:500px;
+    min-height:300px;
+    overflow:auto;  
+
+}
+
+
+
+.floatclear{
+    clear:both;
+
+}
+
+@media print {
+  body {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color: #333333;
+	
+  }
+  body > td {
+      font-size: 0.5em !important;
+  }
+
+  h3{
+      font-size: 1.3em;
+	color: #333333;
+  }
+  #icao-heading{
+      font-size: 16px;
+	color: #333333;
+  }
+
+  a[href]:after {
+    content: none !important;
+  }
+
+  #toolbar, .div-messages{ display: none;}
+  
+
+
+}/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    color: #AAA;
+    background: 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+
+#met-report-display{
+    min-height: 300px;
+}
+/* 
+	Generic Styling, for Desktops/Laptops 
+	*/
+
+    table.sun-reports { 
+		width: 60%; 
+		border-collapse: collapse; 
+	}
+    .sun-reports th, .met-reports th { 
+		background: #808080; 
+		color: white; 
+		font-weight: bold; 
+	}
+	table.met-reports{ 
+		width: 100%; 
+		border-collapse: collapse; 
+	}
+
+	/* Zebra striping */
+	.met-reports tr:nth-of-type(odd) { 
+		background: #bbb; 
+        color: black;
+	}
+
+	.met-reports td,.met-reports  th { 
+		padding: 6px; 
+		border: 1px solid #ccc; 
+		text-align: left; 
+	}
+    #met-report-message {
+        color: #db394b;
+        font-weight:200;
+    }
+
+    article.kontakt{
+        background-color:#2A2A2A;
+        height:100%;
+        margin: 10px;
+        box-shadow: 10px 10px 5px #000;
+    }
+
+    div.jumbotron{
+         background-image: url('images/avitools.jpg');
+    }
+
+    .float-left{
+        float: left;
+    }
+
+    toolbar h3{
+        float: left;
+        clear: right;
+    }
+
+    td.callsign{
+        color:rgb(232, 255, 127) !important;
+    }
