@@ -22,6 +22,11 @@ You will need composer and then in the base directory of the project:
 It will build the vendor subfolder
 
 ---
+6.9: - Implemented show flight details by clicking on the callsign. Flights are "sent" to javascript as json object to have flights available for details there. In the old days I called a REST function on the server. Meaningless. So few flights per airport per week, it is better to include in the code. 
+
+Somme jquery-play. 
+
+---
 
 Database create statements
 

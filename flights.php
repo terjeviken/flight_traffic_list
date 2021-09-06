@@ -28,6 +28,7 @@
     $program = new WeeklyTraffic($target_date);
     $flights = $program->get_traffic_list();
 
+    $jscript_flights = [];    
    
     function hr_sec($date_str){
         // 2021-08-30 07:00:00
@@ -90,22 +91,19 @@
 
         <div class="day-container">
         <div class="txt-weekday day-container-text">
-            <h5><?php echo $ukedager[$i]; ?></h5>
+            <h5 class="weekday"><?php echo $ukedager[$i]; ?></h5>
             <h6><?php echo date_str($walker, "d-m-Y"); ?></h6>
         </div>
-        <table class="day-program-list">
+        <table class="day-program-list" id="day-program-list">
             <?php            
             foreach($daily_tfc as $flight)
             {
+                // Fill in array to be used by JavaScript
+                $jscript_flights[$flight["FlightId"]] = $flight;
+
                 ?>
                 <tr>
-                <!--  <td>                        
-                        @Ajax.ActionLink(flight.CallSign, "GetFlightDetails", new { id = flight.FlightId }, new AjaxOptions { UpdateTargetId = "flightdetails", InsertionMode = InsertionMode.Replace })
-                    </td> 
-                    <td class="flight_airport_detail" @{if (ViewBag.DisplayToFromAirports == "false") { Response.Write(" hidden_element"); } }> @flight.DepAD-@flight.ArrAD:
-                    </td>                 
-                -->
-                    <td class="callsign"><?php echo $flight["Callsign"] . "&nbsp"; ?> </td>                     
+                    <td ><button data-id="<?php echo $flight["FlightId"] ?>" class="callsign btn btn-link btn-sm"><?php echo $flight["Callsign"]; ?> </button> </td>                     
                     <td class="flight_airport_detail"> <?php echo $flight["DepAD"] ."-". $flight["ArrAD"] . ":"; ?></td> 
                     <td><?php echo hr_sec($flight["Touch"]) ."-" . $flight["Direction"]; ?> </td>
                 </tr>
@@ -122,6 +120,9 @@
     <div class="floatclear"></div>    
 </div>
 
+<div class="div-messages" background-color:#ffcc00>
+    <label id="flightdetails" class="center-text">(Click call sign for details)</label>
+</div>
 
 <div id="met-disclaimer">
     DEMO!!! . Trafikkdata importeres kun sporadisk 
@@ -132,9 +133,44 @@
 
 <script type="text/javascript">   
 
+    // php left a json encoded list of flights. First element is FlightID
+    const flights = JSON.parse('<?php echo json_encode($jscript_flights); ?>');
+
     var showFlightAirports = true;
 
+    function get_hours_minutes(date_str){
+            // date_str is in format "2021-09-01 hh:mm:ss"
+            return date_str.substr(11,5);
+    }
+
     $(document).ready(function () {
+        
+        $(".callsign").click(function () {
+
+            let flightId = $(this).data("id");
+            let f = flights[flightId];
+
+            ukedag = $(this).parents(".day-container").find(".weekday").text();          
+
+            if (typeof(f) != "undefined"){
+              
+                $(this).effect( "shake", {}, 250, function(){
+                    $(this).blur();
+                } );
+
+            
+                let STA = get_hours_minutes(f.STA);
+                let STD = get_hours_minutes(f.STD);
+
+                desc = "[" + ukedag + "] - C/S: " + f.Callsign + " Type: " + f.Aircraft + " Dep: " + f.DepAD + " " + STD 
+                    + " -> Arr: " + f.ArrAD + " " + STA;
+                $("#flightdetails").text(desc);
+            }
+
+            
+            
+        });
+
         $("#chkShowFlightAirports").click(function () {
             if ($(this).prop("checked") != showFlightAirports) {
                 showFlightAirports = !showFlightAirports;
@@ -151,6 +187,7 @@
 
         });
     });
+
     $('.datepicker').datepicker(
         {
             format: 'dd.mm.yyyy',
@@ -169,6 +206,7 @@
         window.location.href = "flights.php?date=" + agnosticDate;
     }
    
+
 </script>
 
  </body>
